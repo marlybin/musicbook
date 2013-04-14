@@ -12,26 +12,21 @@ public class Server {
 	private static Boolean stop_server;
 	
 	public static void main(String[] args) {
-		
-		System.out.println("Démarrage du serveur...");
-		
+			
 		try {
 			serverSocket = new ServerSocket( PORT );
-			System.out.println("Ecoute du port " + PORT );
+			System.out.println("Server démarré sur le port " + PORT );
 			
 			stop_server = false;
 			
 			// Boucle qui attends des connexions.
 			while( !stop_server ){
-				
 				Socket socket = serverSocket.accept();
 				Thread th = new ClientThread( socket );
 				th.start();
-					
 			}
 			
 			System.out.println("Extinction du serveur");
-
 			serverSocket.close();
 			
 		} catch (IOException e) {
@@ -40,6 +35,9 @@ public class Server {
 
 	}
 	
+	/*
+	 * Instruction pour stopper le serveur.
+	 */
 	public static void stopServer() throws UnknownHostException, IOException{
 		
 		stop_server = true;
