@@ -12,6 +12,8 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import queries.Q;
+import queries.Qcommunity_join;
+import queries.Qcommunity_leave;
 import queries.Qcommunity_playlist;
 import queries.Qcommunity_share_music;
 import queries.Qlogin;
@@ -72,7 +74,7 @@ public class XMLRequest {
 			break;
 			
 		case "community_leave":
-			this.query = generateSQL_join_group(document);
+			this.query = generateSQL_community_leave(document);
 			break;
 			
 		case "community_share_music":
@@ -134,8 +136,12 @@ public class XMLRequest {
 	/*
 	 * Génère la requête qui permet de rejoindre un groupe.
 	 */
-	private Q generateSQL_join_group(Document document) {
-		return null;
+	private Q generateSQL_community_leave(Document document) {
+		
+		String userid		= document.getRootElement().getChild("userid").getText();
+		String communityid	= document.getRootElement().getChild("communityid").getText();
+		
+		return new Qcommunity_leave( userid, communityid );
 	}
 
 	/*
@@ -143,17 +149,21 @@ public class XMLRequest {
 	 */
 	private Q generateSQL_community_playlist(Document document) {
 		
-		String userid	= document.getRootElement().getChild("userid").getText();
-		String groupid	= document.getRootElement().getChild("groupid").getText();
+		String userid		= document.getRootElement().getChild("userid").getText();
+		String communityid	= document.getRootElement().getChild("communityid").getText();
 		
-		return new Qcommunity_playlist( userid, groupid );
+		return new Qcommunity_playlist( userid, communityid );
 	}
 
 	/*
 	 * Génère la requête pour rejoindre un groupe.
 	 */
 	private Q generateSQL_community_join(Document document) {
-		return null;
+		
+		String userid		= document.getRootElement().getChild("userid").getText();
+		String communityid	= document.getRootElement().getChild("communityid").getText();
+		
+		return new Qcommunity_join( communityid, userid, "1");
 	}
 	
 	/*

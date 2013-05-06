@@ -25,6 +25,8 @@ public class MusicBookDatabase {
 		String type = request.getType();
 
 		XMLResponse response;
+
+		System.out.println("execution de "+statement.toString());
 		
 		// Si il s'agit d'une requete de type SELECT.
 		if( type.equals("select") ){
