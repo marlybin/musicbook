@@ -28,7 +28,7 @@
 			</fieldset>
 		</form>
 
-		Créer un compte
+		<a href="Subscribe">Créer un compte</a>
 	</div>
 
 </body>

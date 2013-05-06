@@ -16,6 +16,7 @@ public class Group extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String CONNECTION_PAGE = "/connection.jsp";
 	private static final String PAGE = "/groupe.jsp";
+	private static final String ONE_GROUP = "/one_group.jsp";
 	private static final String NOCHROME = "/gotochrome.jsp";
        
     public Group() {
@@ -37,7 +38,13 @@ public class Group extends HttpServlet {
 			// Si l'utilisateur est connecté.
 			if( session.getAttribute("id")!=null ){
 				
-				this.getServletContext().getRequestDispatcher( PAGE ).forward( request, response );
+				// Si la page groupe de l'utilisateur est demandée.
+				if( request.getParameter("id") == null )
+					this.getServletContext().getRequestDispatcher( PAGE ).forward(request, response);
+				// Sinon il s'agit de la page d'un groupe en particulier.
+				else
+					this.getServletContext().getRequestDispatcher( ONE_GROUP ).forward(request, response);
+				
 			}
 			// Si l'utilisateur n'est pas connecté.
 			else{

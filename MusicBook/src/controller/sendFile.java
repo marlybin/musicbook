@@ -1,12 +1,22 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.FileItemFactory;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+
 
 /**
  * Servlet implementation class sendFile
@@ -27,28 +37,30 @@ public class sendFile extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Part part = request.getPart( "music" );
-		System.out.println(part);
 		/*
-		String fileName = getNomFichier( part );
-		if ( fileName != null && !fileName.isEmpty() ) {
-	        String nomChamp = part.getName();
-	        request.setAttribute( nomChamp, fileName );
-	        System.out.println(fileName);
-	    }*/
-		
-		this.doGet(request, response);
-	}
+		 boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
-	private static String getNomFichier( Part part ) {
+		    if (isMultipart) {
+		        FileItemFactory factory = new DiskFileItemFactory();
+		        ServletFileUpload upload = new ServletFileUpload(factory);
 
-	    for ( String contentDisposition : part.getHeader( "content-disposition" ).split( ";" ) ) {
-	        if ( contentDisposition.trim().startsWith("filename") ) {
-	            return contentDisposition.substring( contentDisposition.indexOf( '=' ) + 1 );
-	        }
-	    }
-	    return null;
-	}
-	
+		        try {
+		            List items = upload.parseRequest(request);
+		            Iterator iterator = items.iterator();
+		            while (iterator.hasNext()) {
+		                FileItem item = (FileItem) iterator.next();
+		                if (!item.isFormField()) {
+		                    String fileName = item.getName();
+
+		                    File path = new File("/home/tony/upload/test.mp3");
+		                    if (!path.exists()) {
+		                        boolean status = path.mkdirs();
+		                    }
+
+		                    File uploadedFile = new File(path + "/" + fileName);
+		                    item.write(uploadedFile);
+		                }
+		            }
+		        } catch (Exception e) {}
+	}*/}
 }

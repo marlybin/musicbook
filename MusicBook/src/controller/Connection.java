@@ -31,7 +31,7 @@ public class Connection extends HttpServlet {
 			session.removeAttribute("id");
 		}
 		
-		response.sendRedirect( "Home" );
+		response.sendRedirect( "Main" );
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,7 +50,7 @@ public class Connection extends HttpServlet {
 			}
 			else{
 				request.setAttribute("error", "true");
-				response.sendRedirect( "Home?error=badid" );
+				response.sendRedirect( "Main?error=badid" );
 			}
 		// Si les données du formulaire n'existent pas..
 		}catch( Exception e ){
@@ -60,7 +60,7 @@ public class Connection extends HttpServlet {
 	
 	private Boolean is_valid_connection( String login, String password ){
 		
-		if( login.equals("tony") ){ return true; }
+		if( login.equals("marly") ){ return true; }
 		return false;
 	}
 }
